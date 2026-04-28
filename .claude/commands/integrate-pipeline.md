@@ -26,6 +26,7 @@ Look at the existing providers and pick the best template:
 - **Cloud API with REST calls**: Copy from `src/parse_bench/inference/providers/parse/reducto.py` or `chunkr.py`
 - **Self-hosted vLLM endpoint**: Copy from `src/parse_bench/inference/providers/parse/gemma4.py` or `qwen3_5.py`
 - **Local library (no API)**: Copy from `src/parse_bench/inference/providers/parse/pymupdf.py` or `tesseract.py`
+- **Local CLI binary (subprocess to external tool)**: Copy from `src/parse_bench/inference/providers/parse/liteparse_rust.py` (Rust binary) or `liteparse.py` (Node script). These show the subprocess + `tempfile.NamedTemporaryFile(delete=False)` + JSON-load pattern, plus the right error classification (`subprocess.TimeoutExpired` → `ProviderTransientError`; non-zero exit → `ProviderPermanentError`). The two share a normalizer — useful pattern when integrating a tool that has multiple bindings (e.g. Rust port + TS original).
 - **Layout detection**: Copy from `src/parse_bench/inference/providers/layoutdet/docling.py`
 
 Read the template file to understand the exact pattern.
