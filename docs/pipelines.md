@@ -230,6 +230,8 @@ These run entirely locally with no external dependencies.
 | `tesseract_eng` | Tesseract OCR (English) | `tesseract` installed |
 | `tesseract_fast` | Tesseract OCR (fast) | `tesseract` installed |
 | `tesseract_high_quality` | Tesseract OCR (high quality) | `tesseract` installed |
+| `liteparse_rust_parse` | [LiteParse](https://github.com/run-llama/liteparse) Rust port (no OCR) | Build: `cd ~/wk/liteparse_rust && cargo build --release` |
+| `liteparse_parse` | LiteParse TypeScript original (no OCR) | Build: `cd ~/wk/liteparse && npm install && npm run build` (or `npm i -g @llamaindex/liteparse`) |
 
 ---
 

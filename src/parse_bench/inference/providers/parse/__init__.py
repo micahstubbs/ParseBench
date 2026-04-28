@@ -21,6 +21,8 @@ _PROVIDER_MODULES = [
     "google_docai",
     "granite_vision",
     "landingai",
+    "liteparse",
+    "liteparse_rust",
     "llamaparse",
     "llamaparse_v2_normalization",
     "mineru25",

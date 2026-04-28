@@ -1568,3 +1568,33 @@ def register_parse_pipelines(register_fn) -> None:  # type: ignore[no-untyped-de
             },
         )
     )
+
+    # =========================================================================
+    # LiteParse (local CLI — Rust port at ~/wk/liteparse_rust)
+    # =========================================================================
+
+    register_fn(
+        PipelineSpec(
+            pipeline_name="liteparse_rust_parse",
+            provider_name="liteparse_rust",
+            product_type=ProductType.PARSE,
+            config={
+                "enable_ocr": False,
+            },
+        )
+    )
+
+    # =========================================================================
+    # LiteParse (local CLI — TypeScript original at ~/wk/liteparse)
+    # =========================================================================
+
+    register_fn(
+        PipelineSpec(
+            pipeline_name="liteparse_parse",
+            provider_name="liteparse",
+            product_type=ProductType.PARSE,
+            config={
+                "enable_ocr": False,
+            },
+        )
+    )
