@@ -74,11 +74,11 @@ class LiteparseProvider(Provider):
                 f"Build with: cd ~/wk/liteparse && npm install && npm run build"
             )
 
-    def _build_command(self, pdf_path: str, output_path: str) -> list[str]:
+    def _build_command(self, source_path: str, output_path: str) -> list[str]:
         cmd = [
             *self._cli_command,
             "parse",
-            pdf_path,
+            source_path,
             "--format",
             "json",
             "-o",
@@ -102,18 +102,16 @@ class LiteparseProvider(Provider):
                 f"LiteparseProvider only supports PARSE, got {request.product_type}"
             )
 
-        pdf_path = Path(request.source_file_path)
-        if pdf_path.suffix.lower() != ".pdf":
-            raise ProviderPermanentError(f"Only .pdf files supported, got {pdf_path.suffix}")
-        if not pdf_path.exists():
-            raise ProviderPermanentError(f"PDF file not found: {pdf_path}")
+        source_path = Path(request.source_file_path)
+        if not source_path.exists():
+            raise ProviderPermanentError(f"Source file not found: {source_path}")
 
         started_at = datetime.now()
         with tempfile.NamedTemporaryFile(suffix=".json", delete=False) as tmp:
             output_path = tmp.name
 
         try:
-            cmd = self._build_command(str(pdf_path), output_path)
+            cmd = self._build_command(str(source_path), output_path)
             try:
                 proc = subprocess.run(
                     cmd,
@@ -124,7 +122,7 @@ class LiteparseProvider(Provider):
                 )
             except subprocess.TimeoutExpired as e:
                 raise ProviderTransientError(
-                    f"liteparse (TS) timed out after {self._timeout}s on {pdf_path}"
+                    f"liteparse (TS) timed out after {self._timeout}s on {source_path}"
                 ) from e
             except OSError as e:
                 raise ProviderTransientError(f"Failed to invoke liteparse: {e}") from e
